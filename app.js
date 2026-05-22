@@ -216,10 +216,7 @@ function laceyBark() {
 
 function playSynthSound(soundChoice) {
     try {
-        if (!window._audioCtx) {
-            window._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        const ctx = window._audioCtx;
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
         if (ctx.state === 'suspended') ctx.resume();
         if (soundChoice === 'bark') {
             const bufferSize = ctx.sampleRate * 0.15;
@@ -3499,18 +3496,17 @@ function toggleDarkMode() {
     const isDark = document.body.classList.contains('dark-mode');
     saveData('dark-mode', isDark);
     document.getElementById('darkModeBtn').textContent = isDark ? '☀️' : '🌙';
-    // Apply appropriate background
-    const bg = getData('theme-bg', null);
-    if (bg) {
-        document.body.style.background = bg;
-        document.body.style.backgroundAttachment = 'fixed';
-    } else if (isDark) {
+    // Set default background for the mode
+    if (isDark) {
         document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)';
-        document.body.style.backgroundAttachment = 'fixed';
     } else {
         document.body.style.background = 'linear-gradient(135deg, #fdf6f9 0%, #f3eeff 40%, #edf5ff 70%, #fdf6f9 100%)';
-        document.body.style.backgroundAttachment = 'fixed';
     }
+    document.body.style.backgroundAttachment = 'fixed';
+    saveData('theme-bg', document.body.style.background);
+    // Re-apply accent
+    const headingStyle = getData('heading-style', 'gradient');
+    applyAccentColor(headingStyle);
 }
 
 function initDarkMode() {
@@ -3531,8 +3527,10 @@ function setThemeBg(bg) {
     document.body.style.backgroundAttachment = 'fixed';
     saveData('theme-bg', bg);
 
-    // Auto-toggle dark mode based on background brightness
-    const isDarkBg = bg.includes('#1') || bg.includes('#0') || bg.includes('#2') || bg.includes('#3');
+    // Auto-toggle dark mode based on whether this is a dark background
+    const darkBgs = ['#1a1a1a', '#1e1e1e', '#121212'];
+    const isDarkBg = darkBgs.includes(bg) || bg.includes('#1a1a2e') || bg.includes('#1a1025') || bg.includes('#1e1e2e') || bg.includes('#2b2d42') || bg.includes('#1a1410') || bg.includes('#0d1117');
+
     if (isDarkBg && !document.body.classList.contains('dark-mode')) {
         document.body.classList.add('dark-mode');
         saveData('dark-mode', true);
@@ -4117,10 +4115,7 @@ function init() {
 
     // Unlock AudioContext on first user interaction so mascot sound works on hover
     document.addEventListener('click', function unlockAudio() {
-        if (!window._audioCtx) {
-            window._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (window._audioCtx.state === 'suspended') window._audioCtx.resume();
+        try { new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
         document.removeEventListener('click', unlockAudio);
     }, { once: true });
 }
