@@ -101,10 +101,6 @@
                     <div class="bg-swatch" style="background:linear-gradient(135deg,#1a1025,#2d1b4e,#1a1025);"></div>
                     <span>Purple Night</span>
                 </div>
-                <div class="bg-option" onclick="selectBg('dark-github', this)">
-                    <div class="bg-swatch" style="background:linear-gradient(135deg,#0d1117,#161b22,#21262d);"></div>
-                    <span>GitHub Dark</span>
-                </div>
                 <div class="bg-option" onclick="selectBg('dark-mocha', this)">
                     <div class="bg-swatch" style="background:linear-gradient(135deg,#1e1e2e,#313244,#45475a);"></div>
                     <span>Mocha</span>
@@ -117,12 +113,8 @@
                     <div class="bg-swatch" style="background:linear-gradient(135deg,#1a1410,#2e2218,#1a1410);"></div>
                     <span>Warm Dark</span>
                 </div>
-                <div class="bg-option" onclick="selectBg('dark-charcoal', this)">
-                    <div class="bg-swatch" style="background:#1e1e1e;"></div>
-                    <span>Charcoal</span>
-                </div>
                 <div class="bg-option" onclick="selectBg('dark-black', this)">
-                    <div class="bg-swatch" style="background:#121212;"></div>
+                    <div class="bg-swatch" style="background:#1a1a1a;"></div>
                     <span>Midnight</span>
                 </div>
             </div>
@@ -266,7 +258,7 @@
                     <button class="btn btn-primary" onclick="finishSetup()" style="max-width:260px;">Open Command Center →</button>
                 </div>
                 <a href="guide.html" target="_blank" class="guide-link">📖 Read the Command Center Guide</a>
-                <p style="font-size:12px;color:#a8a8a8;margin-top:16px;">💡 Want it in your taskbar? Click the install icon (⊕) in your browser's address bar to add it as a desktop app.</p>
+                <p style="font-size:12px;color:#a8a8a8;margin-top:16px;">📌 To pin this to your taskbar: look for the install icon in your browser's address bar (or go to browser menu → "Install app"). It'll add the Command Center as a shortcut you can open anytime.</p>
             </div>
         </div>
     </div>
@@ -396,12 +388,10 @@
             white: '#ffffff',
             'dark-default': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)',
             'dark-purple': 'linear-gradient(135deg, #1a1025 0%, #2d1b4e 40%, #1a1025 100%)',
-            'dark-github': 'linear-gradient(135deg, #0d1117 0%, #161b22 40%, #21262d 70%, #0d1117 100%)',
             'dark-mocha': 'linear-gradient(135deg, #1e1e2e 0%, #313244 40%, #45475a 70%, #1e1e2e 100%)',
             'dark-slate': 'linear-gradient(135deg, #2b2d42 0%, #3d405b 40%, #2b2d42 100%)',
             'dark-warm': 'linear-gradient(135deg, #1a1410 0%, #2e2218 40%, #1a1410 100%)',
-            'dark-charcoal': '#1e1e1e',
-            'dark-black': '#121212'
+            'dark-black': '#1a1a1a'
         };
         const fontValues = {
             inter: "'Inter', -apple-system, sans-serif",
@@ -504,8 +494,8 @@
             config.heading = style;
             document.querySelectorAll('.heading-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            // Live preview on all h1 elements in the wizard
             const isDark = config.theme === 'dark';
+            // Live preview on all h1 elements in the wizard
             document.querySelectorAll('.wizard h1').forEach(h => {
                 if (style === 'gradient') {
                     h.style.background = 'linear-gradient(135deg, #9b7ed8, #e88aaf)';
@@ -520,6 +510,16 @@
                     const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a' };
                     h.style.color = colors[style] || '#9b7ed8';
                 }
+            });
+            // Update primary buttons to match
+            const btnBgs = {
+                gradient: 'linear-gradient(135deg, #9b7ed8, #e88aaf)',
+                purple: '#9b7ed8',
+                pink: '#e88aaf',
+                neutral: isDark ? '#555' : '#4a4a5a'
+            };
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.style.background = btnBgs[style] || btnBgs.gradient;
             });
         }
 
