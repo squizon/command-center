@@ -347,6 +347,13 @@
                     </div>
                     <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Custom background</label>
                     <input type="text" id="customBg" placeholder="e.g., #fdf6f9 or linear-gradient(...)" style="margin-bottom:12px;">
+                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Heading & Accent Color</label>
+                    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                        <button onclick="setHeadingStyle('gradient')" style="background:linear-gradient(135deg,#9b7ed8,#e88aaf);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Gradient"></button>
+                        <button onclick="setHeadingStyle('purple')" style="background:#9b7ed8;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Purple"></button>
+                        <button onclick="setHeadingStyle('pink')" style="background:#e88aaf;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Pink"></button>
+                        <button onclick="setHeadingStyle('neutral')" style="background:#4a4a5a;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Neutral"></button>
+                    </div>
                     <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Font</label>
                     <select id="themeFont" onchange="previewFont(this.value)" style="font-size:14px;">
                         <option value="'Inter', -apple-system, sans-serif" style="font-family:Inter,sans-serif;">Inter (default)</option>

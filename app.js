@@ -3529,6 +3529,30 @@ function setThemeFont(font) {
     saveData('theme-font', font);
 }
 
+function setHeadingStyle(style) {
+    saveData('heading-style', style);
+    const isDark = getData('dark-mode', false);
+    const headerText = document.querySelector('.header-text');
+    if (headerText) {
+        if (style === 'gradient') {
+            headerText.style.background = 'linear-gradient(135deg, #9b7ed8, #e88aaf)';
+            headerText.style.webkitBackgroundClip = 'text';
+            headerText.style.webkitTextFillColor = 'transparent';
+            headerText.style.backgroundClip = 'text';
+        } else {
+            const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a' };
+            const color = colors[style] || '#9b7ed8';
+            headerText.style.background = 'none';
+            headerText.style.webkitBackgroundClip = 'unset';
+            headerText.style.webkitTextFillColor = color;
+            headerText.style.backgroundClip = 'unset';
+            headerText.style.color = color;
+        }
+    }
+    applyAccentColor(style);
+    showToast('Accent updated ✨');
+}
+
 function previewFont(font) {
     const preview = document.getElementById('fontPreview');
     if (preview) preview.style.fontFamily = font;
@@ -3546,6 +3570,8 @@ function initTheme() {
     const bg = getData('theme-bg', null);
     const font = getData('theme-font', null);
     const headingStyle = getData('heading-style', null);
+    const isDark = getData('dark-mode', false);
+
     if (bg) {
         document.body.style.background = bg;
         document.body.style.backgroundAttachment = 'fixed';
@@ -3556,7 +3582,6 @@ function initTheme() {
         if (fontSelect) fontSelect.value = font;
     }
     if (headingStyle && headingStyle !== 'gradient') {
-        const isDark = getData('dark-mode', false);
         const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a', dark: isDark ? '#c8c8d4' : '#4a4a5a' };
         const color = colors[headingStyle] || '#9b7ed8';
         const headerText = document.querySelector('.header-text');
@@ -3567,6 +3592,30 @@ function initTheme() {
             headerText.style.backgroundClip = 'unset';
             headerText.style.color = color;
         }
+    }
+
+    // Apply accent color to all buttons based on heading style
+    applyAccentColor(headingStyle || 'gradient');
+}
+
+function applyAccentColor(style) {
+    const isDark = getData('dark-mode', false);
+    const accentColors = { gradient: '#9b7ed8', purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#888' : '#4a4a5a', dark: isDark ? '#888' : '#4a4a5a' };
+    const accent = accentColors[style] || '#9b7ed8';
+
+    // Set CSS custom property for accent
+    document.documentElement.style.setProperty('--accent', accent);
+
+    // Style primary action buttons
+    const btnBg = style === 'gradient' ? 'linear-gradient(135deg, #9b7ed8, #e88aaf)' : accent;
+    document.querySelectorAll('.add-task-btn, .clip-save-btn, .modal-submit').forEach(btn => {
+        btn.style.background = btnBg;
+    });
+
+    // Style nav active state
+    const activeNav = document.querySelector('.nav-btn.active');
+    if (activeNav && style !== 'gradient') {
+        activeNav.style.color = accent;
     }
 }
 
