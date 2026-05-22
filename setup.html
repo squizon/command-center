@@ -254,7 +254,8 @@
                 <h2>you're all set, <span id="doneUserName">friend</span>! 🎉</h2>
                 <p>Your Command Center is personalized and ready to go.</p>
                 <div class="done-summary" id="doneSummary"></div>
-                <div class="btn-row" style="justify-content:center;">
+                <div class="btn-row" style="justify-content:center;gap:12px;">
+                    <button class="btn btn-secondary" onclick="prevStep()" style="max-width:120px;">← Back</button>
                     <button class="btn btn-primary" onclick="finishSetup()" style="max-width:260px;">Open Command Center →</button>
                 </div>
                 <a href="guide.html" target="_blank" class="guide-link">📖 Read the Command Center Guide</a>
@@ -405,6 +406,44 @@
         function updateProgress() {
             document.getElementById('progressFill').style.width = ((currentStep / totalSteps) * 100) + '%';
             document.getElementById('stepLabel').textContent = `Step ${currentStep} of ${totalSteps}`;
+            // Re-apply heading style to current step's h1
+            applyHeadingStyle();
+            // Re-apply button style
+            applyButtonStyle();
+        }
+
+        function applyHeadingStyle() {
+            const style = config.heading;
+            const isDark = config.theme === 'dark';
+            document.querySelectorAll('.wizard h1').forEach(h => {
+                if (style === 'gradient') {
+                    h.style.background = 'linear-gradient(135deg, #9b7ed8, #e88aaf)';
+                    h.style.webkitBackgroundClip = 'text';
+                    h.style.webkitTextFillColor = 'transparent';
+                    h.style.backgroundClip = 'text';
+                } else if (style && style !== 'gradient') {
+                    h.style.background = 'none';
+                    h.style.webkitBackgroundClip = 'unset';
+                    h.style.webkitTextFillColor = 'unset';
+                    h.style.backgroundClip = 'unset';
+                    const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a' };
+                    h.style.color = colors[style] || '#9b7ed8';
+                }
+            });
+        }
+
+        function applyButtonStyle() {
+            const style = config.heading;
+            const isDark = config.theme === 'dark';
+            const btnBgs = {
+                gradient: 'linear-gradient(135deg, #9b7ed8, #e88aaf)',
+                purple: '#9b7ed8',
+                pink: '#e88aaf',
+                neutral: isDark ? '#555' : '#4a4a5a'
+            };
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.style.background = btnBgs[style] || btnBgs.gradient;
+            });
         }
 
         function nextStep() {
@@ -494,33 +533,8 @@
             config.heading = style;
             document.querySelectorAll('.heading-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            const isDark = config.theme === 'dark';
-            // Live preview on all h1 elements in the wizard
-            document.querySelectorAll('.wizard h1').forEach(h => {
-                if (style === 'gradient') {
-                    h.style.background = 'linear-gradient(135deg, #9b7ed8, #e88aaf)';
-                    h.style.webkitBackgroundClip = 'text';
-                    h.style.webkitTextFillColor = 'transparent';
-                    h.style.backgroundClip = 'text';
-                } else {
-                    h.style.background = 'none';
-                    h.style.webkitBackgroundClip = 'unset';
-                    h.style.webkitTextFillColor = 'unset';
-                    h.style.backgroundClip = 'unset';
-                    const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a' };
-                    h.style.color = colors[style] || '#9b7ed8';
-                }
-            });
-            // Update primary buttons to match
-            const btnBgs = {
-                gradient: 'linear-gradient(135deg, #9b7ed8, #e88aaf)',
-                purple: '#9b7ed8',
-                pink: '#e88aaf',
-                neutral: isDark ? '#555' : '#4a4a5a'
-            };
-            document.querySelectorAll('.btn-primary').forEach(btn => {
-                btn.style.background = btnBgs[style] || btnBgs.gradient;
-            });
+            applyHeadingStyle();
+            applyButtonStyle();
         }
 
         function selectMascot(mascot, el) {
@@ -632,6 +646,7 @@
                 const lname = row.querySelector('input[type="text"]').value.trim();
                 if (lname) leaders.push(lname);
             });
+            const soundNames = { bark: 'Pum Pum', meow: 'Whew', chirp: 'Tweet', pop: 'Bloop', chime: 'Chime', squeak: 'Squeak', none: 'None' };
             document.getElementById('doneSummary').innerHTML =
                 '<strong>Your setup:</strong><br>' +
                 '👤 Name: ' + name + '<br>' +
@@ -639,7 +654,7 @@
                 '🎨 Theme: ' + config.theme + ' / ' + config.bg + '<br>' +
                 '🔤 Font: ' + config.font + '<br>' +
                 '🐾 Mascot: ' + config.mascot + '<br>' +
-                '🔊 Sound: ' + config.sound;
+                '🔊 Sound: ' + (soundNames[config.sound] || config.sound);
         }
 
         function finishSetup() {
