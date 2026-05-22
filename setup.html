@@ -140,9 +140,9 @@
                     <span class="heading-preview" style="color:#e88aaf;">pick a vibe</span>
                     <span class="heading-label">Pink</span>
                 </div>
-                <div class="heading-option" onclick="selectHeading('dark', this)">
+                <div class="heading-option" onclick="selectHeading('neutral', this)">
                     <span class="heading-preview" style="color:#4a4a5a;">pick a vibe</span>
-                    <span class="heading-label">Dark</span>
+                    <span class="heading-label">Neutral</span>
                 </div>
             </div>
             <label style="margin-top:20px;">Font</label>
@@ -311,7 +311,7 @@
         .leader-inputs { display: flex; flex-direction: column; gap: 10px; }
         .leader-row { display: flex; gap: 8px; align-items: center; }
         .leader-row input { flex: 1; }
-        .leader-row .emoji-select { width: 55px; text-align: center; font-size: 18px; padding: 8px 4px; border: 1px solid #f0e4ea; border-radius: 10px; background: #fdf6f9; cursor: pointer; appearance: none; -webkit-appearance: none; }
+        .leader-row .emoji-select { width: 60px; text-align: center; font-size: 18px; padding: 8px 4px; border: 1px solid #f0e4ea; border-radius: 10px; background: #fdf6f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a8a8a8'/%3E%3C/svg%3E") no-repeat right 6px center; cursor: pointer; -webkit-appearance: none; appearance: none; padding-right: 18px; }
         .remove-row-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #f0e4ea; background: white; font-size: 14px; cursor: pointer; color: #a8a8a8; transition: all 0.2s; }
         .remove-row-btn:hover { background: #ffeaea; color: #e06b6b; border-color: #e06b6b; }
         .add-leader-btn { padding: 10px; background: none; border: 1px dashed #f0e4ea; border-radius: 8px; font-size: 12px; cursor: pointer; color: #7a7a7a; width: 100%; margin-top: 8px; }
@@ -505,6 +505,7 @@
             document.querySelectorAll('.heading-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
             // Live preview on all h1 elements in the wizard
+            const isDark = config.theme === 'dark';
             document.querySelectorAll('.wizard h1').forEach(h => {
                 if (style === 'gradient') {
                     h.style.background = 'linear-gradient(135deg, #9b7ed8, #e88aaf)';
@@ -516,7 +517,7 @@
                     h.style.webkitBackgroundClip = 'unset';
                     h.style.webkitTextFillColor = 'unset';
                     h.style.backgroundClip = 'unset';
-                    const colors = { purple: '#9b7ed8', pink: '#e88aaf', dark: '#4a4a5a' };
+                    const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a' };
                     h.style.color = colors[style] || '#9b7ed8';
                 }
             });

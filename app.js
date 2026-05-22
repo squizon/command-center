@@ -3551,7 +3551,8 @@ function initTheme() {
         if (fontSelect) fontSelect.value = font;
     }
     if (headingStyle && headingStyle !== 'gradient') {
-        const colors = { purple: '#9b7ed8', pink: '#e88aaf', dark: '#4a4a5a' };
+        const isDark = getData('dark-mode', false);
+        const colors = { purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a', dark: isDark ? '#c8c8d4' : '#4a4a5a' };
         const color = colors[headingStyle] || '#9b7ed8';
         const headerText = document.querySelector('.header-text');
         if (headerText) {
