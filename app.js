@@ -216,8 +216,10 @@ function laceyBark() {
 
 function playSynthSound(soundChoice) {
     try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        // Resume context if suspended (browser autoplay policy)
+        if (!window._audioCtx) {
+            window._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const ctx = window._audioCtx;
         if (ctx.state === 'suspended') ctx.resume();
         if (soundChoice === 'bark') {
             const bufferSize = ctx.sampleRate * 0.15;
@@ -3497,13 +3499,17 @@ function toggleDarkMode() {
     const isDark = document.body.classList.contains('dark-mode');
     saveData('dark-mode', isDark);
     document.getElementById('darkModeBtn').textContent = isDark ? '☀️' : '🌙';
-    // Re-apply saved background
+    // Apply appropriate background
     const bg = getData('theme-bg', null);
     if (bg) {
         document.body.style.background = bg;
         document.body.style.backgroundAttachment = 'fixed';
+    } else if (isDark) {
+        document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)';
+        document.body.style.backgroundAttachment = 'fixed';
     } else {
-        document.body.style.background = '';
+        document.body.style.background = 'linear-gradient(135deg, #fdf6f9 0%, #f3eeff 40%, #edf5ff 70%, #fdf6f9 100%)';
+        document.body.style.backgroundAttachment = 'fixed';
     }
 }
 
@@ -3607,17 +3613,28 @@ function applyAccentColor(style) {
 
     // Set CSS custom property for accent
     document.documentElement.style.setProperty('--accent', accent);
+    document.documentElement.style.setProperty('--purple', accent);
 
     // Style primary action buttons
     const btnBg = style === 'gradient' ? 'linear-gradient(135deg, #9b7ed8, #e88aaf)' : accent;
-    document.querySelectorAll('.add-task-btn, .clip-save-btn, .modal-submit').forEach(btn => {
+    document.querySelectorAll('.add-task-btn, .clip-save-btn').forEach(btn => {
         btn.style.background = btnBg;
+        btn.style.color = 'white';
     });
 
-    // Style nav active state
-    const activeNav = document.querySelector('.nav-btn.active');
-    if (activeNav && style !== 'gradient') {
-        activeNav.style.color = accent;
+    // Style view headers
+    document.querySelectorAll('.view-header h2').forEach(h => {
+        if (style === 'gradient') {
+            h.style.color = '';
+        } else {
+            h.style.color = accent;
+        }
+    });
+
+    // Style progress bar
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) {
+        progressFill.style.background = btnBg;
     }
 }
 
@@ -3730,13 +3747,13 @@ function initSettings() {
 
     // Mascot tooltip
     const tooltipInput = document.getElementById('mascotTooltip');
-    const currentTooltip = getData('mascot-tooltip', 'Lacey says hi!');
+    const currentTooltip = getData('mascot-tooltip', 'hello!');
     tooltipInput.value = currentTooltip;
 
     // Save button
     document.getElementById('saveMascotSettings').addEventListener('click', () => {
         saveData('mascot-speech', speechInput.value.trim() || 'woof! 🐾');
-        saveData('mascot-tooltip', tooltipInput.value.trim() || 'Lacey says hi!');
+        saveData('mascot-tooltip', tooltipInput.value.trim() || 'hello!');
         updateMascotDisplay();
         showToast('Mascot settings saved ✨');
     });
@@ -3914,7 +3931,7 @@ function updateMascotDisplay() {
     if (speechEl) {
         speechEl.textContent = speech;
     }
-    mascotEl.title = getData('mascot-tooltip', 'says hi!');
+    mascotEl.title = getData('mascot-tooltip', 'hello!');
     mascotEl.style.display = '';
 }
 
@@ -4077,6 +4094,15 @@ function init() {
 
     // Progress bar
     updateProgressBar();
+
+    // Unlock AudioContext on first user interaction so mascot sound works on hover
+    document.addEventListener('click', function unlockAudio() {
+        if (!window._audioCtx) {
+            window._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (window._audioCtx.state === 'suspended') window._audioCtx.resume();
+        document.removeEventListener('click', unlockAudio);
+    }, { once: true });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
