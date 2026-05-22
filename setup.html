@@ -469,8 +469,24 @@
                 pink: '#e88aaf',
                 neutral: isDark ? '#555' : '#4a4a5a'
             };
+            const secBgs = {
+                gradient: isDark ? '#252540' : '#f3eeff',
+                purple: isDark ? '#252540' : '#f3eeff',
+                pink: isDark ? '#2a2030' : '#fff0f5',
+                neutral: isDark ? '#2a2a2a' : '#f0f0f0'
+            };
+            const secColors = {
+                gradient: '#9b7ed8',
+                purple: '#9b7ed8',
+                pink: '#e88aaf',
+                neutral: isDark ? '#ccc' : '#4a4a5a'
+            };
             document.querySelectorAll('.btn-primary').forEach(btn => {
                 btn.style.background = btnBgs[style] || btnBgs.gradient;
+            });
+            document.querySelectorAll('.btn-secondary').forEach(btn => {
+                btn.style.background = secBgs[style] || secBgs.gradient;
+                btn.style.color = secColors[style] || secColors.gradient;
             });
         }
 

@@ -201,19 +201,16 @@ function laceyBark() {
             return;
         }
 
-        // If no wizard sound was chosen, try the default bark MP3 (host's file)
-        if (!soundChoice || soundChoice === 'bark') {
-            const audio = new Audio('/bark.mp3.mp3');
-            audio.volume = 0.5;
-            audio.play().catch(() => {
-                // MP3 not available (GitHub Pages) — use synthesized bark
-                playSynthSound('bark');
-            });
+        // If a wizard sound was chosen, use synthesized sound
+        if (soundChoice) {
+            playSynthSound(soundChoice);
             return;
         }
 
-        // Wizard-selected synthesized sound
-        playSynthSound(soundChoice);
+        // No wizard sound, no custom sound — try default bark MP3 (host only)
+        const audio = new Audio('/bark.mp3.mp3');
+        audio.volume = 0.5;
+        audio.play().catch(() => {});
     } catch {}
 }
 
