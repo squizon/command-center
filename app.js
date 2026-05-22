@@ -3530,6 +3530,18 @@ function setThemeBg(bg) {
     document.body.style.background = bg;
     document.body.style.backgroundAttachment = 'fixed';
     saveData('theme-bg', bg);
+
+    // Auto-toggle dark mode based on background brightness
+    const isDarkBg = bg.includes('#1') || bg.includes('#0') || bg.includes('#2') || bg.includes('#3');
+    if (isDarkBg && !document.body.classList.contains('dark-mode')) {
+        document.body.classList.add('dark-mode');
+        saveData('dark-mode', true);
+        document.getElementById('darkModeBtn').textContent = '☀️';
+    } else if (!isDarkBg && document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove('dark-mode');
+        saveData('dark-mode', false);
+        document.getElementById('darkModeBtn').textContent = '🌙';
+    }
 }
 
 function setThemeFont(font) {
