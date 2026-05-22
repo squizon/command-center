@@ -504,6 +504,8 @@
             if (currentStep === totalSteps) populateDone();
             document.getElementById('step' + currentStep).classList.add('active');
             updateProgress();
+            // Re-apply styles to newly visible buttons
+            setTimeout(() => { applyHeadingStyle(); applyButtonStyle(); }, 10);
         }
 
         function prevStep() {
@@ -511,6 +513,7 @@
             currentStep--;
             document.getElementById('step' + currentStep).classList.add('active');
             updateProgress();
+            setTimeout(() => { applyHeadingStyle(); applyButtonStyle(); }, 10);
         }
 
         function updateNamePreview() {

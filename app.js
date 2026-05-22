@@ -3506,9 +3506,9 @@ function toggleDarkMode() {
 }
 
 function initDarkMode() {
-    // Check wizard theme setting
+    // Check wizard theme setting — only apply on FIRST load (if dark-mode key doesn't exist yet)
     const wizardTheme = getData('theme', null);
-    if (wizardTheme === 'dark' && !getData('dark-mode', false)) {
+    if (wizardTheme === 'dark' && localStorage.getItem('cc-dark-mode') === null) {
         saveData('dark-mode', true);
     }
     if (getData('dark-mode', false)) {
@@ -3894,7 +3894,9 @@ function updateMascotDisplay() {
             if (!emojiEl) {
                 emojiEl = document.createElement('div');
                 emojiEl.className = 'mascot-emoji-display';
-                emojiEl.style.cssText = 'width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;background:var(--bg);border:2px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.08);';
+                emojiEl.style.cssText = 'width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;background:var(--bg);border:2px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;';
+                emojiEl.onclick = laceyBark;
+                emojiEl.onmouseenter = laceyBark;
                 img.parentNode.insertBefore(emojiEl, img);
             }
             emojiEl.style.display = 'flex';
