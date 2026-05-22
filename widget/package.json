@@ -1,0 +1,13 @@
+{
+  "name": "command-center-widget",
+  "version": "1.0.0",
+  "description": "Quick Capture Widget for Daily Command Center",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "electron": "^31.7.7"
+  }
+}

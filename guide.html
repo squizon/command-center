@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center Guide ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #fdf6f9 0%, #f3eeff 40%, #edf5ff 70%, #fdf6f9 100%);
+            background-attachment: fixed; color: #2d2d2d; line-height: 1.7; min-height: 100vh;
+        }
+        .guide { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+        .guide-header {
+            text-align: center; margin-bottom: 40px; padding: 32px;
+            background: white; border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.06); border: 1px solid #f0e4ea;
+        }
+        .guide-header h1 {
+            font-family: 'Playfair Display', serif; font-size: 32px;
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px;
+        }
+        .guide-header p { color: #7a7a7a; font-size: 15px; }
+        .back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: #9b7ed8; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
+        .section {
+            background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04); border: 1px solid #f0e4ea;
+        }
+        .section h2 { font-family: 'Playfair Display', serif; font-size: 20px; color: #9b7ed8; margin-bottom: 12px; }
+        .section h3 { font-size: 15px; font-weight: 600; color: #2d2d2d; margin-top: 16px; margin-bottom: 6px; }
+        .section p { font-size: 14px; color: #4a4a4a; margin-bottom: 10px; }
+        .section ul { padding-left: 20px; margin-bottom: 12px; }
+        .section li { font-size: 14px; color: #4a4a4a; margin-bottom: 6px; }
+        .tip { background: #f3eeff; border-left: 3px solid #9b7ed8; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #6b5b8a; margin: 12px 0; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        .feature-card { background: #fdf6f9; border: 1px solid #f0e4ea; border-radius: 10px; padding: 14px; text-align: center; }
+        .feature-card .emoji { font-size: 24px; margin-bottom: 6px; }
+        .feature-card .label { font-size: 12px; font-weight: 500; color: #7a7a7a; }
+        .kbd { background: #f3eeff; border: 1px solid #e0d4f0; border-radius: 4px; padding: 2px 6px; font-size: 12px; font-family: monospace; color: #9b7ed8; }
+        .toc { margin: 16px 0; }
+        .toc a { display: block; padding: 8px 12px; font-size: 13px; color: #9b7ed8; text-decoration: none; border-radius: 8px; transition: background 0.2s; }
+        .toc a:hover { background: #f3eeff; }
+        .footer { text-align: center; padding: 32px; font-size: 12px; color: #a8a8a8; }
+    </style>
+</head>
+<body>
+    <div class="guide">
+        <a href="index.html" class="back-link">← Back to Command Center</a>
+        <div class="guide-header">
+            <h1>Command Center Guide ✨</h1>
+            <p>Everything you need to know to get the most out of your dashboard.</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="section">
+            <h2>📑 What's Inside</h2>
+            <div class="toc">
+                <a href="#overview">1. Overview — What is the Command Center?</a>
+                <a href="#today">2. Today View — Your daily dashboard</a>
+                <a href="#leaders">3. Leader Tabs — Task boards per person</a>
+                <a href="#waiting">4. Waiting On & Nudge Queue</a>
+                <a href="#coverage">5. Coverage — Managing when you're out</a>
+                <a href="#overview-tab">6. Overview — Big picture stats</a>
+                <a href="#diary">7. Diary — Weekly archives & promo material</a>
+                <a href="#files">8. Files — Document storage</a>
+                <a href="#settings">9. Settings — Personalization</a>
+                <a href="#shortcuts">10. Tips & Shortcuts</a>
+                <a href="#install">11. Install as an App</a>
+                <a href="#data">12. Data — Backup & Privacy</a>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="section" id="overview">
+            <h2>✨ What is the Command Center?</h2>
+            <p>The Command Center is your personal productivity dashboard designed for Executive Assistants and anyone who supports multiple leaders. It helps you:</p>
+            <ul>
+                <li>Track tasks per leader with due dates and categories</li>
+                <li>Monitor what you're waiting on and when to follow up</li>
+                <li>Track tasks when covering for other EAs</li>
+                <li>Store files, notes, and preferences in one place</li>
+                <li>Keep a weekly diary and archive your accomplishments</li>
+            </ul>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="emoji">📆</div><div class="label">Today View</div></div>
+                <div class="feature-card"><div class="emoji">📋</div><div class="label">Task Boards</div></div>
+                <div class="feature-card"><div class="emoji">⏳</div><div class="label">Waiting On</div></div>
+                <div class="feature-card"><div class="emoji">💌</div><div class="label">Nudge Queue</div></div>
+                <div class="feature-card"><div class="emoji">🌿</div><div class="label">Coverage</div></div>
+                <div class="feature-card"><div class="emoji">📖</div><div class="label">Weekly Diary</div></div>
+                <div class="feature-card"><div class="emoji">📁</div><div class="label">File Storage</div></div>
+                <div class="feature-card"><div class="emoji">⚙️</div><div class="label">Customizable</div></div>
+            </div>
+            <p>All your data is stored locally in your browser. Nothing is sent to any server — it's 100% private.</p>
+        </div>
+
+        <!-- Today View -->
+        <div class="section" id="today">
+            <h2>📆 Today View</h2>
+            <p>Your daily command post. When you open the app, this is what you see first.</p>
+            <h3>What's shown:</h3>
+            <ul>
+                <li><strong>Progress bar</strong> — Shows how many of today's tasks you've completed</li>
+                <li><strong>Due today</strong> — Tasks due right now (with notes/context shown below)</li>
+                <li><strong>Recurring tasks</strong> — Daily/weekly items that reset</li>
+                <li><strong>Needs follow-up</strong> — Waiting items older than 2 days (nudges)</li>
+                <li><strong>Reminders</strong> — Waiting items with a reminder set for today</li>
+                <li><strong>Personal checklist</strong> — Your own daily to-do items</li>
+            </ul>
+            <h3>Actions in Today view:</h3>
+            <ul>
+                <li><strong>✓ button</strong> — Complete a task, resolve a nudge, or clear a reminder</li>
+                <li><strong>→ tmrw / → Mon</strong> — Push a task to tomorrow (or Monday if it's Friday)</li>
+            </ul>
+            <div class="tip">💡 The Today view pulls from all your leader tabs automatically. Complete tasks here and they update everywhere.</div>
+        </div>
+
+        <!-- Leader Tabs -->
+        <div class="section" id="leaders">
+            <h2>👥 Leader Tabs</h2>
+            <p>Each leader you support gets their own tab with a full task board.</p>
+            <h3>Task columns:</h3>
+            <ul>
+                <li><strong>🔴 Overdue</strong> — Past due date</li>
+                <li><strong>🟡 This Week</strong> — Due this Mon–Fri</li>
+                <li><strong>🟢 Upcoming</strong> — Future tasks</li>
+                <li><strong>🔁 Recurring</strong> — Repeating tasks (daily, weekly, etc.)</li>
+            </ul>
+            <h3>Adding tasks:</h3>
+            <p>Click <strong>+ Add Task</strong> at the top of any leader tab. Set a title, optional due date, and type (one-time or recurring).</p>
+            <h3>Quick actions:</h3>
+            <ul>
+                <li><strong>Double-click</strong> a task title to edit it inline</li>
+                <li><strong>Click</strong> a task to open the detail modal (add notes, change due date)</li>
+                <li><strong>✓ button</strong> marks it complete</li>
+                <li><strong>× button</strong> deletes it</li>
+            </ul>
+            <h3>Other sections per leader:</h3>
+            <ul>
+                <li><strong>⏳ Waiting On</strong> — Things you're waiting to hear back on</li>
+                <li><strong>💌 Nudge Queue</strong> — Auto-generated follow-up drafts for items 2+ days old</li>
+                <li><strong>👤 Preferences</strong> — Store exec preferences (travel, food, contacts)</li>
+                <li><strong>📝 Notes</strong> — Freeform notes about this leader</li>
+            </ul>
+        </div>
+
+        <!-- Waiting On & Nudges -->
+        <div class="section" id="waiting">
+            <h2>⏳ Waiting On & Nudge Queue</h2>
+            <p>Track everything you're waiting to hear back on.</p>
+            <h3>Adding a waiting item:</h3>
+            <ul>
+                <li>Click <strong>+ Add</strong> in the Waiting On section</li>
+                <li>Enter what you're waiting for, who from, and the source (Slack, Outlook, etc.)</li>
+                <li>Optionally set a reminder date</li>
+            </ul>
+            <h3>Age badges:</h3>
+            <ul>
+                <li><strong>🟢 Green</strong> — 0–2 days (fresh)</li>
+                <li><strong>🟡 Yellow</strong> — 3–5 days (getting stale)</li>
+                <li><strong>🔴 Red</strong> — 6+ days (needs attention)</li>
+            </ul>
+            <h3>Nudge Queue:</h3>
+            <p>When a waiting item hits 2+ days, the app auto-generates a polite follow-up message you can copy and paste into Slack or email. Click <strong>📋 Copy</strong> to grab it.</p>
+            <div class="tip">💡 Mark items as ✓ resolved when you get a response. They're logged in your monthly stats.</div>
+        </div>
+
+        <!-- Coverage -->
+        <div class="section" id="coverage">
+            <h2>🌿 Coverage</h2>
+            <p>Use the Coverage tab to track tasks when you're covering for a colleague who's out, and compile a coverage report for when they return.</p>
+            <h3>How it works:</h3>
+            <ul>
+                <li>Click <strong>+ Add Coverage Lane</strong> to create a new coverage period</li>
+                <li>Name it (e.g., "Covering for Maria — June 5–9")</li>
+                <li>Add tasks, notes, and handoff information</li>
+                <li>When coverage is done, click <strong>✓ Complete</strong> to archive it to the Diary</li>
+                <li>Use <strong>× Remove</strong> to delete a lane without archiving (can't be undone)</li>
+            </ul>
+            <h3>📧 Handoff Email:</h3>
+            <p>Click the <strong>📧 Handoff</strong> button on any coverage lane to auto-generate an email summary. It opens Outlook with a pre-filled message listing completed tasks, open items, and your handoff notes — ready to send to whoever needs the update.</p>
+            <h3>Coverage Notes:</h3>
+            <p>Use the notes section to capture anything that comes up during coverage. You can move items to specific leader tabs later.</p>
+            <div class="tip">💡 The handoff email is a great way to document what happened while someone was out — no manual typing needed.</div>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="section" id="overview-tab">
+            <h2>✦ Overview</h2>
+            <p>Your bird's-eye view across all leaders.</p>
+            <h3>What you'll find:</h3>
+            <ul>
+                <li><strong>All Overdue</strong> — Every overdue task across all leaders</li>
+                <li><strong>All Waiting On</strong> — Everything you're waiting on, combined</li>
+                <li><strong>Ready to Nudge</strong> — Items that need follow-up</li>
+                <li><strong>This Week's Stats</strong> — Open tasks, completed this week, waiting count</li>
+                <li><strong>Weekly Summary</strong> — Editable text area for your end-of-week recap</li>
+                <li><strong>Monthly Stats</strong> — Bigger picture numbers</li>
+            </ul>
+            <h3>Archive This Week:</h3>
+            <p>Your weekly summary is <strong>automatically archived every Friday</strong> when you open the app. It saves to the Diary as a permanent record of what you accomplished that week. You can also click <strong>📦 Archive This Week</strong> manually anytime if you want to save it early.</p>
+        </div>
+
+        <!-- Diary -->
+        <div class="section" id="diary">
+            <h2>📖 Diary</h2>
+            <p>Your historical record — everything archived lives here.</p>
+            <h3>Sections:</h3>
+            <ul>
+                <li><strong>Weekly Diary</strong> — Past weekly summaries (auto-archived every Friday)</li>
+                <li><strong>Coverage History</strong> — Past coverage periods and what you handled</li>
+                <li><strong>Past Events</strong> — Completed morale events</li>
+                <li><strong>Past Months</strong> — Monthly workload stats</li>
+                <li><strong>Other / Promo Material</strong> — Wins, shoutouts, accomplishments worth remembering</li>
+            </ul>
+            <div class="tip">💡 The "Other" section is great for performance review prep. Add entries throughout the year so you never forget your wins.</div>
+        </div>
+
+        <!-- Files -->
+        <div class="section" id="files">
+            <h2>📁 Files</h2>
+            <p>Store screenshots, documents, and reference materials right in the app.</p>
+            <h3>How to add files:</h3>
+            <ul>
+                <li><strong>Upload</strong> — Click the Upload button to browse your computer</li>
+            </ul>
+            <h3>Folders:</h3>
+            <p>Organize files into folders. Click <strong>+ New Folder</strong> to create one. You can rename or delete folders anytime.</p>
+            <h3>Image gallery:</h3>
+            <p>Click any image to open it full-size. Use the arrow buttons to navigate between images in the same folder.</p>
+            <div class="tip">💡 Files are stored in your browser. Use Export in Settings to back them up.</div>
+        </div>
+
+        <!-- Settings -->
+        <div class="section" id="settings">
+            <h2>⚙️ Settings</h2>
+            <p>Make the Command Center yours.</p>
+            <h3>Mascot:</h3>
+            <ul>
+                <li>Change the speech bubble text</li>
+                <li>Upload a custom mascot image (your pet, a character, anything)</li>
+                <li>Mute or change the hover sound</li>
+                <li>Upload a custom sound (MP3) — find a short bark, meow, or any clip you like, and upload it as your mascot's hover sound</li>
+                <li>Remove the mascot entirely if you prefer</li>
+            </ul>
+            <h3>How to upload a custom sound:</h3>
+            <p>Go to Settings → Mascot → Sound section. Click the upload button and choose a short MP3 file from your computer (1–3 seconds works best). The sound will play whenever you hover over your mascot.</p>
+            <h3>Theme:</h3>
+            <ul>
+                <li>Choose from preset background colors and gradients</li>
+                <li>Set a custom background color or gradient</li>
+                <li>Change the font family</li>
+                <li>Toggle dark mode with the 🌙 button (top-left corner)</li>
+            </ul>
+            <h3>Data:</h3>
+            <ul>
+                <li><strong>Export</strong> — Save a backup file to your computer</li>
+                <li><strong>Import</strong> — Restore from a backup file</li>
+                <li><strong>Reset</strong> — Clear everything and start fresh</li>
+            </ul>
+        </div>
+
+        <!-- Shortcuts -->
+        <div class="section" id="shortcuts">
+            <h2>⌨️ Tips & Shortcuts</h2>
+            <h3>Clipboard Capture:</h3>
+            <p>When you copy text from Slack or Outlook and switch back to the Command Center, it detects the clipboard content and offers to save it as a task, waiting item, or note. You can assign it to any leader instantly.</p>
+            <h3>⚠️ Clipboard permission:</h3>
+            <p>The first time you use the Command Center, your browser will ask: <strong>"See text and images copied to the clipboard — Allow or Block?"</strong></p>
+            <p>You need to click <strong>Allow</strong> for the clipboard capture feature to work. If you accidentally clicked Block:</p>
+            <ul>
+                <li>Click the 🔒 lock icon (or tune icon) in your browser's address bar</li>
+                <li>Find "Clipboard" in the permissions list</li>
+                <li>Change it from "Block" to "Allow"</li>
+                <li>Refresh the page</li>
+            </ul>
+            <h3>Search:</h3>
+            <p>The search bar at the top searches across all tasks, notes, and waiting items. Click a result to jump to it.</p>
+            <h3>Keyboard:</h3>
+            <ul>
+                <li><span class="kbd">Esc</span> — Close any open modal or image preview</li>
+                <li><span class="kbd">←</span> <span class="kbd">→</span> — Navigate images in the gallery</li>
+            </ul>
+            <div class="tip">💡 Double-click any task title to edit it inline without opening the detail modal.</div>
+        </div>
+
+        <!-- Install as App -->
+        <div class="section" id="install">
+            <h2>📱 Install as an App</h2>
+            <p>You can install the Command Center as a standalone app on your computer — it'll show up in your taskbar and open in its own window, just like a regular program.</p>
+            <h3>How to install:</h3>
+            <ul>
+                <li>In <strong>Chrome or Edge</strong>: Look for the install icon (⊕) in the address bar, or go to the browser menu (⋮) → "Install Command Center"</li>
+                <li>Click <strong>Install</strong> when prompted</li>
+                <li>It'll appear in your taskbar and Start menu</li>
+            </ul>
+            <div class="tip">💡 Once installed, it opens in its own window without the browser toolbar — feels like a real desktop app.</div>
+        </div>
+
+        <!-- Data -->
+        <div class="section" id="data">
+            <h2>💾 Data & Privacy</h2>
+            <p>Your data is stored entirely in your browser's local storage. Here's what that means:</p>
+            <ul>
+                <li>✅ <strong>Private</strong> — Nothing is sent to any server</li>
+                <li>✅ <strong>Fast</strong> — Everything loads instantly, no network needed</li>
+                <li>⚠️ <strong>Browser-specific</strong> — Data lives in one browser only</li>
+                <li>⚠️ <strong>Clearable</strong> — Clearing browser data removes your info</li>
+            </ul>
+            <h3>Good to know:</h3>
+            <ul>
+                <li>Deleting files on your computer does NOT affect your Command Center data — they're stored separately in the browser</li>
+                <li>If you switch browsers or devices, export your data first and import it in the new browser</li>
+            </ul>
+            <h3>Best practices:</h3>
+            <ul>
+                <li>Export a backup weekly (Settings → Export My Data)</li>
+                <li>Keep the backup file somewhere safe (cloud drive, USB, etc.)</li>
+            </ul>
+            <div class="tip">💡 Set a recurring task for yourself: "Export Command Center backup" every Friday.</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with 💜 — Command Center ✨</p>
+            <p style="margin-top:8px;"><a href="index.html" style="color:#9b7ed8;text-decoration:none;">← Back to Command Center</a></p>
+        </div>
+    </div>
+</body>
+</html>

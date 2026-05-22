@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head><title>Generate Icons</title></head>
+<body>
+<p>Right-click each image below and "Save image as" to create your icon files:</p>
+
+<h3>icon16.png</h3>
+<canvas id="c16" width="16" height="16"></canvas>
+<br><br>
+
+<h3>icon48.png</h3>
+<canvas id="c48" width="48" height="48"></canvas>
+<br><br>
+
+<h3>icon128.png</h3>
+<canvas id="c128" width="128" height="128"></canvas>
+
+<script>
+function drawIcon(canvasId, size) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+
+    // Background circle with gradient
+    const gradient = ctx.createLinearGradient(0, 0, size, size);
+    gradient.addColorStop(0, '#9b7ed8');
+    gradient.addColorStop(1, '#e88aaf');
+
+    ctx.beginPath();
+    ctx.arc(size/2, size/2, size/2 - 1, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Sparkle/star in center
+    ctx.fillStyle = 'white';
+    ctx.font = `${size * 0.5}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✦', size/2, size/2);
+}
+
+drawIcon('c16', 16);
+drawIcon('c48', 48);
+drawIcon('c128', 128);
+
+// Auto-download
+['c16', 'c48', 'c128'].forEach(id => {
+    const canvas = document.getElementById(id);
+    const link = document.createElement('a');
+    const size = id.replace('c', '');
+    link.download = `icon${size}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+});
+</script>
+</body>
+</html>

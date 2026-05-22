@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Capture</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background: transparent;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 12px;
+        }
+
+        /* The floating button */
+        .capture-bubble {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(155, 126, 216, 0.4);
+            transition: all 0.2s ease;
+            font-size: 22px;
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 9999;
+        }
+        .capture-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(155, 126, 216, 0.5);
+        }
+        .capture-bubble.hidden { display: none; }
+
+        /* The expanded form */
+        .capture-panel {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            width: 300px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid #f0e4ea;
+            overflow: hidden;
+            display: none;
+            z-index: 9999;
+            animation: popIn 0.2s ease;
+        }
+        .capture-panel.open { display: block; }
+
+        @keyframes popIn {
+            from { transform: scale(0.9) translateY(10px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .panel-header h2 {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .panel-header .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .panel-header .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .panel-body {
+            padding: 14px 16px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #7a7a7a;
+            display: block;
+            margin-bottom: 3px;
+        }
+        input, select {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #f0e4ea;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: #fdf6f9;
+        }
+        input:focus, select:focus {
+            border-color: #9b7ed8;
+            background: white;
+        }
+        .type-row {
+            display: flex;
+            gap: 4px;
+        }
+        .type-pill {
+            flex: 1;
+            padding: 7px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            border: 1px solid #f0e4ea;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+        .type-pill.active {
+            background: #9b7ed8;
+            color: white;
+            border-color: #9b7ed8;
+        }
+        .type-pill:hover:not(.active) {
+            border-color: #9b7ed8;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 11px;
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.15s;
+        }
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+        .clipboard-hint {
+            font-size: 10px;
+            color: #a8a8a8;
+            text-align: center;
+            margin-top: 8px;
+        }
+        .toast {
+            padding: 10px;
+            background: #34c759;
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            display: none;
+        }
+        .toast.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Button -->
+    <div class="capture-bubble" id="bubble">📌</div>
+
+    <!-- Expanded Panel -->
+    <div class="capture-panel" id="panel">
+        <div class="panel-header">
+            <h2>✨ Quick Capture</h2>
+            <button class="close-btn" id="closePanel">×</button>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <input type="text" id="itemText" placeholder="What do you need to capture?">
+            </div>
+            <div class="form-group">
+                <div class="type-row">
+                    <div class="type-pill active" data-type="task">📌 Task</div>
+                    <div class="type-pill" data-type="waiting">⏳ Waiting</div>
+                    <div class="type-pill" data-type="note">📝 Note</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <select id="assignTo">
+                    <option value="anthony">🟣 Anthony L.</option>
+                    <option value="chris">🔵 Chris B.</option>
+                    <option value="eateam">🧡 EA Team</option>
+                    <option value="coverage">🌿 Coverage</option>
+                </select>
+            </div>
+            <div class="form-group" id="whoGroup" style="display:none;">
+                <input type="text" id="whoFrom" placeholder="Who from?">
+            </div>
+            <div class="form-group" id="sourceGroup" style="display:none;">
+                <select id="source">
+                    <option value="Slack">Slack</option>
+                    <option value="Outlook">Outlook</option>
+                    <option value="In person">In person</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button class="btn-save" id="btnSave">Save ✨</button>
+            <div class="clipboard-hint">💡 Copy text in Slack/Outlook first — it auto-fills here</div>
+        </div>
+        <div class="toast" id="toast">Saved to Command Center ✓</div>
+    </div>
+
+    <script>
+        let selectedType = 'task';
+        const bubble = document.getElementById('bubble');
+        const panel = document.getElementById('panel');
+
+        // Click bubble → open panel and read clipboard
+        bubble.addEventListener('click', async () => {
+            bubble.classList.add('hidden');
+            panel.classList.add('open');
+
+            // Auto-read clipboard
+            try {
+                const clipText = await navigator.clipboard.readText();
+                if (clipText && clipText.trim().length > 0 && clipText.trim().length < 500) {
+                    document.getElementById('itemText').value = clipText.trim();
+                }
+            } catch {
+                // Clipboard permission denied — user can type manually
+            }
+
+            document.getElementById('itemText').focus();
+        });
+
+        // Close panel → show bubble
+        document.getElementById('closePanel').addEventListener('click', () => {
+            panel.classList.remove('open');
+            bubble.classList.remove('hidden');
+        });
+
+        // Type pills
+        document.querySelectorAll('.type-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                selectedType = pill.dataset.type;
+                document.getElementById('whoGroup').style.display = selectedType === 'waiting' ? 'block' : 'none';
+                document.getElementById('sourceGroup').style.display = selectedType === 'waiting' ? 'block' : 'none';
+            });
+        });
+
+        // Save
+        document.getElementById('btnSave').addEventListener('click', saveItem);
+        document.getElementById('itemText').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') saveItem();
+        });
+
+        async function saveItem() {
+            const text = document.getElementById('itemText').value.trim();
+            if (!text) return;
+
+            const leader = document.getElementById('assignTo').value;
+            const today = new Date().toISOString().split('T')[0];
+
+            if (selectedType === 'task') {
+                const key = `tasks-${leader}`;
+                const tasks = await getData(key, []);
+                tasks.push({
+                    id: Date.now().toString(),
+                    title: text,
+                    type: 'task',
+                    dueDate: null,
+                    notes: '',
+                    createdAt: today,
+                    completed: false
+                });
+                await saveData(key, tasks);
+            } else if (selectedType === 'waiting') {
+                const key = `waiting-${leader}`;
+                const items = await getData(key, []);
+                items.push({
+                    text,
+                    who: document.getElementById('whoFrom').value.trim(),
+                    source: document.getElementById('source').value,
+                    date: today
+                });
+                await saveData(key, items);
+            } else if (selectedType === 'note') {
+                const key = `notes-${leader}`;
+                const existing = await getData(key, '');
+                const updated = existing ? existing + '\n' + `[${today}] ${text}` : `[${today}] ${text}`;
+                await saveData(key, updated);
+            }
+
+            // Show toast, clear, and collapse
+            document.getElementById('toast').classList.add('show');
+            document.getElementById('itemText').value = '';
+            document.getElementById('whoFrom').value = '';
+
+            setTimeout(() => {
+                document.getElementById('toast').classList.remove('show');
+                panel.classList.remove('open');
+                bubble.classList.remove('hidden');
+            }, 1200);
+        }
+
+        async function getData(key, fallback) {
+            try {
+                const res = await fetch(`/api/data/${encodeURIComponent(key)}`);
+                if (res.ok) {
+                    const value = await res.json();
+                    return value !== null ? value : fallback;
+                }
+            } catch {}
+            return fallback;
+        }
+
+        async function saveData(key, value) {
+            try {
+                await fetch(`/api/data/${encodeURIComponent(key)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ value })
+                });
+            } catch (err) {
+                console.log('Save error:', err);
+            }
+        }
+    </script>
+</body>
+</html>

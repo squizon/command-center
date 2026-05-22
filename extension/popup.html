@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 320px;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #fdf6f9, #f3eeff);
+            padding: 16px;
+        }
+        h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #9b7ed8;
+            margin-bottom: 12px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #7a7a7a;
+            display: block;
+            margin-bottom: 3px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #f0e4ea;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: white;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #9b7ed8;
+        }
+        textarea {
+            min-height: 50px;
+            resize: vertical;
+        }
+        .btn-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        button {
+            flex: 1;
+            padding: 9px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+        .btn-primary {
+            background: #9b7ed8;
+            color: white;
+        }
+        .btn-primary:hover { background: #8a6bc7; }
+        .btn-secondary {
+            background: #f3eeff;
+            color: #9b7ed8;
+            border: 1px solid #e8dff5;
+        }
+        .btn-secondary:hover { background: #e8dff5; }
+        .type-pills {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .type-pill {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            border: 1px solid #f0e4ea;
+            background: white;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .type-pill.active {
+            background: #9b7ed8;
+            color: white;
+            border-color: #9b7ed8;
+        }
+        .type-pill:hover:not(.active) {
+            border-color: #9b7ed8;
+        }
+        .toast {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #34c759;
+            color: white;
+            border-radius: 8px;
+            font-size: 12px;
+            text-align: center;
+            display: none;
+        }
+        .toast.show { display: block; }
+        .detected {
+            background: #fff0f5;
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            color: #7a7a7a;
+        }
+        .detected strong { color: #2d2d2d; }
+    </style>
+</head>
+<body>
+    <h1>✨ Quick Capture</h1>
+
+    <!-- Auto-detected context -->
+    <div class="detected" id="detected" style="display:none;">
+        <strong id="detectedSource"></strong>: <span id="detectedText"></span>
+    </div>
+
+    <div class="form-group">
+        <label>What's the item?</label>
+        <input type="text" id="itemText" placeholder="e.g., Follow up on budget approval">
+    </div>
+
+    <div class="form-group">
+        <label>Assign to</label>
+        <select id="assignTo">
+            <option value="anthony">🟣 Anthony L.</option>
+            <option value="chris">🔵 Chris B.</option>
+            <option value="eateam">🧡 EA Team</option>
+            <option value="coverage">🌿 Coverage</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Type</label>
+        <div class="type-pills">
+            <span class="type-pill active" data-type="task">📌 Task</span>
+            <span class="type-pill" data-type="waiting">⏳ Waiting On</span>
+            <span class="type-pill" data-type="note">📝 Note</span>
+        </div>
+    </div>
+
+    <!-- Conditional fields -->
+    <div class="form-group" id="whoGroup" style="display:none;">
+        <label>Who from?</label>
+        <input type="text" id="whoFrom" placeholder="e.g., James">
+    </div>
+
+    <div class="form-group" id="dueGroup">
+        <label>Due date (optional)</label>
+        <input type="date" id="dueDate">
+    </div>
+
+    <div class="form-group" id="sourceGroup" style="display:none;">
+        <label>Source</label>
+        <select id="source">
+            <option value="Slack">Slack</option>
+            <option value="Outlook">Outlook</option>
+            <option value="In person">In person</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn-secondary" id="btnCancel">Cancel</button>
+        <button class="btn-primary" id="btnSave">Save ✨</button>
+    </div>
+
+    <div class="toast" id="toast">Saved to Command Center ✓</div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

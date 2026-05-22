@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Capture Widget</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background: transparent;
+            overflow: hidden;
+        }
+        .widget {
+            width: 300px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid #f0e4ea;
+            overflow: hidden;
+            animation: slideIn 0.2s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .widget-header {
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            -webkit-app-region: drag;
+        }
+        .widget-header h2 {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .widget-header .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-app-region: no-drag;
+        }
+        .widget-header .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .widget-body {
+            padding: 14px 16px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #7a7a7a;
+            display: block;
+            margin-bottom: 3px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #f0e4ea;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: #fdf6f9;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #9b7ed8;
+            background: white;
+        }
+        textarea {
+            min-height: 40px;
+            resize: none;
+        }
+        .type-row {
+            display: flex;
+            gap: 4px;
+        }
+        .type-pill {
+            flex: 1;
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            border: 1px solid #f0e4ea;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+        .type-pill.active {
+            background: #9b7ed8;
+            color: white;
+            border-color: #9b7ed8;
+        }
+        .type-pill:hover:not(.active) {
+            border-color: #9b7ed8;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #9b7ed8, #e88aaf);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.15s;
+        }
+        .btn-save:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .toast {
+            padding: 8px;
+            background: #34c759;
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            display: none;
+            border-radius: 0 0 16px 16px;
+        }
+        .toast.show { display: block; }
+        .shortcut-hint {
+            text-align: center;
+            font-size: 10px;
+            color: #a8a8a8;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget" id="widget">
+        <div class="widget-header" id="widgetHeader">
+            <h2>✨ Quick Capture</h2>
+            <button class="close-btn" id="toggleBtn">−</button>
+        </div>
+        <div class="widget-body">
+            <div class="form-group">
+                <input type="text" id="itemText" placeholder="What do you need to capture?" autofocus>
+            </div>
+            <div class="form-group">
+                <div class="type-row">
+                    <div class="type-pill active" data-type="task">📌 Task</div>
+                    <div class="type-pill" data-type="waiting">⏳ Waiting</div>
+                    <div class="type-pill" data-type="note">📝 Note</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <select id="assignTo">
+                    <option value="anthony">🟣 Anthony L.</option>
+                    <option value="chris">🔵 Chris B.</option>
+                    <option value="eateam">🧡 EA Team</option>
+                    <option value="coverage">🌿 Coverage</option>
+                </select>
+            </div>
+            <div class="form-group" id="whoGroup" style="display:none;">
+                <input type="text" id="whoFrom" placeholder="Who from?">
+            </div>
+            <button class="btn-save" id="btnSave">Save ✨</button>
+            <div class="shortcut-hint">Ctrl+Shift+C to show/hide</div>
+        </div>
+        <div class="toast" id="toast">Saved ✓</div>
+    </div>
+    <script src="widget.js"></script>
+</body>
+</html>

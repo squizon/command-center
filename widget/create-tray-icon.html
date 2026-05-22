@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Generate Tray Icon</title></head>
+<body>
+<p>This will auto-download your tray icon. Move it into the widget folder.</p>
+<canvas id="icon" width="32" height="32"></canvas>
+<script>
+const canvas = document.getElementById('icon');
+const ctx = canvas.getContext('2d');
+
+// Purple-pink gradient circle
+const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+gradient.addColorStop(0, '#9b7ed8');
+gradient.addColorStop(1, '#e88aaf');
+
+ctx.beginPath();
+ctx.arc(16, 16, 15, 0, Math.PI * 2);
+ctx.fillStyle = gradient;
+ctx.fill();
+
+// White sparkle
+ctx.fillStyle = 'white';
+ctx.font = '16px serif';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('✦', 16, 16);
+
+// Download
+const link = document.createElement('a');
+link.download = 'tray-icon.png';
+link.href = canvas.toDataURL();
+link.click();
+</script>
+</body>
+</html>

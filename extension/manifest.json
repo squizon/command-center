@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Command Center Capture ✨",
+  "version": "1.0.0",
+  "description": "Quick capture to your Daily Command Center from any page",
+  "permissions": ["storage", "activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://outlook.office.com/*", "https://outlook.office365.com/*"],
+      "js": ["content-outlook.js"],
+      "css": ["content.css"]
+    },
+    {
+      "matches": ["https://app.slack.com/*"],
+      "js": ["content-slack.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
