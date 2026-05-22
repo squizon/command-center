@@ -11,7 +11,7 @@
 <body>
     <div class="wizard">
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="step-label" id="stepLabel">Step 1 of 6</div>
+        <div class="step-label" id="stepLabel">Step 1 of 7</div>
 
         <!-- Step 1: Welcome & Name -->
         <div class="step active" id="step1">
@@ -247,8 +247,37 @@
             </div>
         </div>
 
-        <!-- Step 6: Done -->
+        <!-- Step 6: Pin to Taskbar -->
         <div class="step" id="step6">
+            <h1>pin it ✨</h1>
+            <p class="subtitle">Add the Command Center to your taskbar so it's always one click away.</p>
+            <div style="background:var(--bg, #fdf6f9);border-radius:12px;padding:20px;margin-top:12px;border:1px solid #f0e4ea;">
+                <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;">How to install:</h3>
+                <div style="display:flex;flex-direction:column;gap:12px;font-size:13px;color:#4a4a4a;">
+                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                        <span style="background:#f3eeff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#9b7ed8;flex-shrink:0;">1</span>
+                        <span>Look for the <strong>install icon</strong> in your browser's address bar — it looks like a monitor with a download arrow (⊕) or a small app icon</span>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                        <span style="background:#f3eeff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#9b7ed8;flex-shrink:0;">2</span>
+                        <span>Click it and select <strong>"Install"</strong> when prompted</span>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                        <span style="background:#f3eeff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#9b7ed8;flex-shrink:0;">3</span>
+                        <span>The Command Center will appear in your <strong>taskbar</strong> and Start menu — opens in its own window, no browser toolbar</span>
+                    </div>
+                </div>
+                <p style="font-size:11px;color:#a8a8a8;margin-top:14px;">Don't see the install icon? Try the browser menu (⋮) → "Install Command Center" or "Install app"</p>
+            </div>
+            <p style="font-size:12px;color:#a8a8a8;margin-top:16px;">You can skip this and do it later — the option is always available in your browser.</p>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="prevStep()">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <!-- Step 7: Done -->
+        <div class="step" id="step7">
             <div class="welcome-done">
                 <div class="done-mascot" id="doneMascot">🐕</div>
                 <h2>you're all set, <span id="doneUserName">friend</span>! 🎉</h2>
@@ -259,7 +288,6 @@
                     <button class="btn btn-primary" onclick="finishSetup()" style="max-width:260px;">Open Command Center →</button>
                 </div>
                 <a href="guide.html" target="_blank" class="guide-link">📖 Read the Command Center Guide</a>
-                <p style="font-size:12px;color:#a8a8a8;margin-top:16px;">📌 To pin this to your taskbar: look for the install icon in your browser's address bar (or go to browser menu → "Install app"). It'll add the Command Center as a shortcut you can open anytime.</p>
             </div>
         </div>
     </div>
@@ -376,7 +404,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 7;
         let config = { name: '', leaders: {}, theme: 'light', bg: 'default', font: 'inter', heading: 'gradient', mascot: 'dog', sound: 'bark' };
         const mascotEmojis = { dog: '🐕', cat: '🐱', bunny: '🐰', fox: '🦊', panda: '🐼', owl: '🦉' };
         const defaultEmojis = ['🟣', '🔵', '🧡', '🟢', '🔴', '💛', '🩷', '💜', '🩵', '⭐'];
