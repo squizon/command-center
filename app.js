@@ -27,6 +27,10 @@ let dataCache = {};
 let serverAvailable = false;
 
 async function initDataSync() {
+    // Skip if not on localhost (GitHub Pages has no API)
+    if (!window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+        return;
+    }
     try {
         const res = await fetch('/api/data', {
             headers: { 'X-CC-Sync': 'host' }
@@ -208,7 +212,7 @@ function laceyBark() {
         }
 
         // No wizard sound, no custom sound — try default bark MP3 (host only)
-        const audio = new Audio('/bark.mp3.mp3');
+        const audio = new Audio('bark.mp3.mp3');
         audio.volume = 0.5;
         audio.play().catch(() => {});
     } catch {}
@@ -3791,24 +3795,23 @@ function initSettings() {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (ev) => {
-            // Resize image to fit localStorage limits
             const img = new Image();
             img.onload = () => {
                 try {
                     const canvas = document.createElement('canvas');
-                    const maxSize = 150;
+                    const maxSize = 100;
                     let w = img.width, h = img.height;
                     if (w > h) { h = (h / w) * maxSize; w = maxSize; }
                     else { w = (w / h) * maxSize; h = maxSize; }
                     canvas.width = w; canvas.height = h;
                     canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                    const compressed = canvas.toDataURL('image/jpeg', 0.7);
-                    saveData('mascot-image', compressed);
+                    const compressed = canvas.toDataURL('image/jpeg', 0.5);
+                    localStorage.setItem('cc-mascot-image', JSON.stringify(compressed));
                     updateMascotPreview();
                     updateMascotDisplay();
                     showToast('Mascot updated 🐾');
                 } catch(err) {
-                    showToast('Error uploading image — try a smaller file');
+                    showToast('Image too large — try a smaller file');
                 }
             };
             img.src = ev.target.result;
@@ -3959,7 +3962,7 @@ function updateMascotDisplay() {
             emojiEl.textContent = emoji;
         } else {
             // No wizard preset, no custom image — host's default (Lacey)
-            img.src = '/lacey.png.png';
+            img.src = 'lacey.png.png';
             img.style.display = '';
             const emojiEl = mascotEl.querySelector('.mascot-emoji-display');
             if (emojiEl) emojiEl.style.display = 'none';
