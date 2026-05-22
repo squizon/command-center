@@ -467,27 +467,29 @@
                 gradient: 'linear-gradient(135deg, #9b7ed8, #e88aaf)',
                 purple: '#9b7ed8',
                 pink: '#e88aaf',
-                neutral: isDark ? '#555' : '#4a4a5a'
+                neutral: isDark ? '#666' : '#4a4a5a'
             };
             const secBgs = {
-                gradient: isDark ? '#252540' : '#f3eeff',
-                purple: isDark ? '#252540' : '#f3eeff',
-                pink: isDark ? '#2a2030' : '#fff0f5',
-                neutral: isDark ? '#2a2a2a' : '#f0f0f0'
+                gradient: isDark ? '#2a2a50' : '#f3eeff',
+                purple: isDark ? '#2a2a50' : '#f3eeff',
+                pink: isDark ? '#3a2035' : '#fff0f5',
+                neutral: isDark ? '#333' : '#f0f0f0'
             };
             const secColors = {
-                gradient: '#9b7ed8',
-                purple: '#9b7ed8',
-                pink: '#e88aaf',
-                neutral: isDark ? '#ccc' : '#4a4a5a'
+                gradient: isDark ? '#b39ddb' : '#9b7ed8',
+                purple: isDark ? '#b39ddb' : '#9b7ed8',
+                pink: isDark ? '#f0a0c0' : '#e88aaf',
+                neutral: isDark ? '#ddd' : '#4a4a5a'
             };
             document.querySelectorAll('.btn-primary').forEach(btn => {
-                btn.style.background = btnBgs[style] || btnBgs.gradient;
+                btn.style.setProperty('background', btnBgs[style] || btnBgs.gradient, 'important');
+                btn.style.setProperty('color', 'white', 'important');
             });
             document.querySelectorAll('.btn-secondary').forEach(btn => {
-                btn.style.background = secBgs[style] || secBgs.gradient;
-                btn.style.color = secColors[style] || secColors.gradient;
+                btn.style.setProperty('background', secBgs[style] || secBgs.gradient, 'important');
+                btn.style.setProperty('color', secColors[style] || secColors.gradient, 'important');
             });
+        }
         }
 
         function nextStep() {
