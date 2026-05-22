@@ -217,6 +217,8 @@ function laceyBark() {
 function playSynthSound(soundChoice) {
     try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        // Resume context if suspended (browser autoplay policy)
+        if (ctx.state === 'suspended') ctx.resume();
         if (soundChoice === 'bark') {
             const bufferSize = ctx.sampleRate * 0.15;
             const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);

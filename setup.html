@@ -559,6 +559,9 @@
                 wizard.classList.remove('dark');
                 config.bg = 'default';
             }
+            // Update buttons to match light/dark
+            applyButtonStyle();
+            applyHeadingStyle();
         }
 
         function selectBg(bg, el) {
