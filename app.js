@@ -3542,6 +3542,9 @@ function setThemeBg(bg) {
         saveData('dark-mode', false);
         document.getElementById('darkModeBtn').textContent = '🌙';
     }
+    // Re-apply accent so headers stay visible
+    const headingStyle = getData('heading-style', 'gradient');
+    applyAccentColor(headingStyle);
 }
 
 function setThemeFont(font) {
@@ -3551,7 +3554,7 @@ function setThemeFont(font) {
 
 function setHeadingStyle(style) {
     saveData('heading-style', style);
-    const isDark = getData('dark-mode', false);
+    const isDark = getData('dark-mode', false) || document.body.classList.contains('dark-mode');
     const headerText = document.querySelector('.header-text');
     if (headerText) {
         if (style === 'gradient') {
@@ -3619,8 +3622,8 @@ function initTheme() {
 }
 
 function applyAccentColor(style) {
-    const isDark = getData('dark-mode', false);
-    const accentColors = { gradient: '#9b7ed8', purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#888' : '#4a4a5a', dark: isDark ? '#888' : '#4a4a5a' };
+    const isDark = getData('dark-mode', false) || document.body.classList.contains('dark-mode');
+    const accentColors = { gradient: '#9b7ed8', purple: '#9b7ed8', pink: '#e88aaf', neutral: isDark ? '#c8c8d4' : '#4a4a5a', dark: isDark ? '#c8c8d4' : '#4a4a5a' };
     const accent = accentColors[style] || '#9b7ed8';
 
     // Set CSS custom property for accent
@@ -3641,6 +3644,11 @@ function applyAccentColor(style) {
         } else {
             h.style.color = accent;
         }
+    });
+
+    // Style section headers
+    document.querySelectorAll('.section-header h3').forEach(h => {
+        h.style.color = isDark ? '#e0e0e0' : '';
     });
 
     // Style progress bar
