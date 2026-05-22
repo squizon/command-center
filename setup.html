@@ -353,6 +353,23 @@
         .guide-link { display: inline-block; margin-top: 16px; font-size: 13px; color: #9b7ed8; text-decoration: none; border-bottom: 1px dashed #9b7ed8; padding-bottom: 2px; }
         .guide-link:hover { color: #8a6bc7; }
         @media (max-width: 600px) { .wizard { padding: 24px; } .mascot-grid { grid-template-columns: repeat(2, 1fr); } .bg-options { grid-template-columns: repeat(2, 1fr); } }
+        .wizard.dark { background: #1e1e30; border-color: #2a2a40; color: #e0e0e0; }
+        .wizard.dark input, .wizard.dark select { background: #252540; border-color: #2a2a40; color: #e0e0e0; }
+        .wizard.dark input:focus, .wizard.dark select:focus { border-color: #9b7ed8; background: #2a2a50; }
+        .wizard.dark .subtitle { color: #999; }
+        .wizard.dark .preview-box { background: #252540; color: #b39ddb; }
+        .wizard.dark .theme-option, .wizard.dark .bg-option, .wizard.dark .mascot-option, .wizard.dark .sound-option, .wizard.dark .font-option, .wizard.dark .heading-option { border-color: #2a2a40; }
+        .wizard.dark .theme-option.selected, .wizard.dark .bg-option.selected, .wizard.dark .mascot-option.selected, .wizard.dark .sound-option.selected, .wizard.dark .font-option.selected, .wizard.dark .heading-option.selected { border-color: #9b7ed8; background: #2a2a50; }
+        .wizard.dark .theme-option:hover, .wizard.dark .bg-option:hover, .wizard.dark .mascot-option:hover, .wizard.dark .sound-option:hover, .wizard.dark .font-option:hover, .wizard.dark .heading-option:hover { border-color: #9b7ed8; }
+        .wizard.dark .add-leader-btn { border-color: #2a2a40; color: #999; }
+        .wizard.dark .remove-row-btn { border-color: #2a2a40; background: #252540; color: #999; }
+        .wizard.dark .btn-secondary { background: #252540; color: #b39ddb; }
+        .wizard.dark .sound-label, .wizard.dark .font-preview { color: #e0e0e0; }
+        .wizard.dark .font-name, .wizard.dark .heading-label, .wizard.dark .mascot-option span:last-child { color: #999; }
+        .wizard.dark .done-summary { background: #252540; color: #ccc; }
+        .wizard.dark .step-label { color: #666; }
+        .wizard.dark label { color: #aaa; }
+        .wizard.dark .progress-bar { background: #2a2a40; }
     </style>
 
     <script>
@@ -439,18 +456,20 @@
             config.theme = theme;
             document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            // Toggle background options
+            const wizard = document.querySelector('.wizard');
             if (theme === 'dark') {
                 document.getElementById('bgOptions').style.display = 'none';
                 document.getElementById('bgOptionsDark').style.display = 'grid';
                 document.getElementById('bgLabel').textContent = 'Pick a background for dark mode.';
                 document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)';
+                wizard.classList.add('dark');
                 config.bg = 'dark-default';
             } else {
                 document.getElementById('bgOptions').style.display = 'grid';
                 document.getElementById('bgOptionsDark').style.display = 'none';
                 document.getElementById('bgLabel').textContent = 'Pick a background for light mode.';
                 document.body.style.background = bgValues[config.bg] || bgValues.default;
+                wizard.classList.remove('dark');
                 config.bg = 'default';
             }
         }
@@ -459,7 +478,6 @@
             config.bg = bg;
             document.querySelectorAll('.bg-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            // Live preview the background
             document.body.style.background = bgValues[bg] || bgValues.default;
         }
 
