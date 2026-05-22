@@ -571,6 +571,8 @@
             document.querySelectorAll('.bg-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
             document.body.style.background = bgValues[bg] || bgValues.default;
+            applyButtonStyle();
+            applyHeadingStyle();
         }
 
         function selectFont(font, el) {
