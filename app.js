@@ -3498,6 +3498,14 @@ function toggleDarkMode() {
     const isDark = document.body.classList.contains('dark-mode');
     saveData('dark-mode', isDark);
     document.getElementById('darkModeBtn').textContent = isDark ? '☀️' : '🌙';
+    // Re-apply saved background
+    const bg = getData('theme-bg', null);
+    if (bg) {
+        document.body.style.background = bg;
+        document.body.style.backgroundAttachment = 'fixed';
+    } else {
+        document.body.style.background = '';
+    }
 }
 
 function initDarkMode() {
@@ -3541,7 +3549,7 @@ function initTheme() {
     const bg = getData('theme-bg', null);
     const font = getData('theme-font', null);
     const headingStyle = getData('heading-style', null);
-    if (bg && !getData('dark-mode', false)) {
+    if (bg) {
         document.body.style.background = bg;
         document.body.style.backgroundAttachment = 'fixed';
     }
