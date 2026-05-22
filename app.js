@@ -3789,10 +3789,23 @@ function initSettings() {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (ev) => {
-            saveData('mascot-image', ev.target.result);
-            updateMascotPreview();
-            updateMascotDisplay();
-            showToast('Mascot updated 🐾');
+            // Resize image to fit localStorage limits
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const maxSize = 200;
+                let w = img.width, h = img.height;
+                if (w > h) { h = (h / w) * maxSize; w = maxSize; }
+                else { w = (w / h) * maxSize; h = maxSize; }
+                canvas.width = w; canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                const compressed = canvas.toDataURL('image/jpeg', 0.8);
+                saveData('mascot-image', compressed);
+                updateMascotPreview();
+                updateMascotDisplay();
+                showToast('Mascot updated 🐾');
+            };
+            img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
     });
