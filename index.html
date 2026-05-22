@@ -326,16 +326,26 @@
                         <h3>🎨 Theme</h3>
                         <span class="section-subtitle">Customize your look</span>
                     </div>
-                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Background</label>
+                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Light Mode Backgrounds</label>
                     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fdf6f9 0%, #f3eeff 40%, #edf5ff 70%, #fdf6f9 100%)')" style="background:linear-gradient(135deg,#fdf6f9,#f3eeff,#edf5ff);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
-                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fce4ec 0%, #f3e5f5 40%, #ede7f6 70%, #fce4ec 100%)')" style="background:linear-gradient(135deg,#fce4ec,#f3e5f5,#ede7f6);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
-                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 40%, #e8eaf6 70%, #e8f5e9 100%)')" style="background:linear-gradient(135deg,#e8f5e9,#e0f7fa,#e8eaf6);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
-                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fff8e1 0%, #fff3e0 40%, #fbe9e7 70%, #fff8e1 100%)')" style="background:linear-gradient(135deg,#fff8e1,#fff3e0,#fbe9e7);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
-                        <button class="theme-swatch" onclick="setThemeBg('#f5f5f5')" style="background:#f5f5f5;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
-                        <button class="theme-swatch" onclick="setThemeBg('#ffffff')" style="background:#ffffff;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fdf6f9 0%, #f3eeff 40%, #edf5ff 70%, #fdf6f9 100%)')" style="background:linear-gradient(135deg,#fdf6f9,#f3eeff,#edf5ff);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Lavender"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fce4ec 0%, #f3e5f5 40%, #ede7f6 70%, #fce4ec 100%)')" style="background:linear-gradient(135deg,#fce4ec,#f3e5f5,#ede7f6);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Rose"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 40%, #e8eaf6 70%, #e8f5e9 100%)')" style="background:linear-gradient(135deg,#e8f5e9,#e0f7fa,#e8eaf6);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Mint"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #fff8e1 0%, #fff3e0 40%, #fbe9e7 70%, #fff8e1 100%)')" style="background:linear-gradient(135deg,#fff8e1,#fff3e0,#fbe9e7);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Sunset"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('#f5f5f5')" style="background:#f5f5f5;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Gray"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('#ffffff')" style="background:#ffffff;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="White"></button>
                     </div>
-                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Custom background (CSS)</label>
+                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Dark Mode Backgrounds</label>
+                    <p style="font-size:11px;color:var(--text-light);margin-bottom:8px;">Toggle dark mode with the 🌙 button (top-left), then pick a dark background.</p>
+                    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)')" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Deep Blue"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #1a1025 0%, #2d1b4e 40%, #1a1025 100%)')" style="background:linear-gradient(135deg,#1a1025,#2d1b4e,#1a1025);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Purple Night"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #0a1a14 0%, #1a2e28 40%, #0a1a14 100%)')" style="background:linear-gradient(135deg,#0a1a14,#1a2e28,#0a1a14);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Forest"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('linear-gradient(135deg, #1a1410 0%, #2e2218 40%, #1a1410 100%)')" style="background:linear-gradient(135deg,#1a1410,#2e2218,#1a1410);width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Warm Dark"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('#1e1e1e')" style="background:#1e1e1e;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Charcoal"></button>
+                        <button class="theme-swatch" onclick="setThemeBg('#121212')" style="background:#121212;width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;" title="Midnight"></button>
+                    </div>
+                    <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Custom background</label>
                     <input type="text" id="customBg" placeholder="e.g., #fdf6f9 or linear-gradient(...)" style="margin-bottom:12px;">
                     <label style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:4px;display:block;">Font</label>
                     <select id="themeFont" onchange="previewFont(this.value)" style="font-size:14px;">
