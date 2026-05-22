@@ -3724,6 +3724,8 @@ function updateTaskCounts() {
     const buttons = nav.querySelectorAll('.nav-btn');
     buttons.forEach(btn => {
         const view = btn.dataset.view;
+        // Skip coverage — it uses lanes, not regular tasks
+        if (view === 'coverage') return;
         if (Object.keys(getLeaders()).includes(view)) {
             const tasks = getTasks(view);
             const openCount = tasks.filter(t => !t.completed && t.type !== 'recurring').length;
@@ -3792,18 +3794,22 @@ function initSettings() {
             // Resize image to fit localStorage limits
             const img = new Image();
             img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const maxSize = 200;
-                let w = img.width, h = img.height;
-                if (w > h) { h = (h / w) * maxSize; w = maxSize; }
-                else { w = (w / h) * maxSize; h = maxSize; }
-                canvas.width = w; canvas.height = h;
-                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                const compressed = canvas.toDataURL('image/jpeg', 0.8);
-                saveData('mascot-image', compressed);
-                updateMascotPreview();
-                updateMascotDisplay();
-                showToast('Mascot updated 🐾');
+                try {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 150;
+                    let w = img.width, h = img.height;
+                    if (w > h) { h = (h / w) * maxSize; w = maxSize; }
+                    else { w = (w / h) * maxSize; h = maxSize; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    const compressed = canvas.toDataURL('image/jpeg', 0.7);
+                    saveData('mascot-image', compressed);
+                    updateMascotPreview();
+                    updateMascotDisplay();
+                    showToast('Mascot updated 🐾');
+                } catch(err) {
+                    showToast('Error uploading image — try a smaller file');
+                }
             };
             img.src = ev.target.result;
         };
