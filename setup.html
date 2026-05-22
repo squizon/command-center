@@ -31,12 +31,12 @@
             <p class="subtitle">Who do you support? Add the people you manage tasks for.</p>
             <div class="leader-inputs" id="leaderInputs">
                 <div class="leader-row">
-                    <input class="emoji-input" type="text" value="🟣" maxlength="2">
+                    <select class="emoji-select" onchange="this.previousElementSibling && null"><option>🟣</option><option>🔵</option><option>🧡</option><option>🟢</option><option>🔴</option><option>💛</option><option>🩷</option><option>💜</option><option>🩵</option><option>⭐</option><option>🤍</option><option>🖤</option></select>
                     <input type="text" placeholder="Leader name (e.g., Sarah K.)" maxlength="50">
                     <button class="remove-row-btn" onclick="removeLeaderRow(this)">×</button>
                 </div>
                 <div class="leader-row">
-                    <input class="emoji-input" type="text" value="🔵" maxlength="2">
+                    <select class="emoji-select"><option>🔵</option><option>🟣</option><option>🧡</option><option>🟢</option><option>🔴</option><option>💛</option><option>🩷</option><option>💜</option><option>🩵</option><option>⭐</option><option>🤍</option><option>🖤</option></select>
                     <input type="text" placeholder="Leader name (e.g., James T.)" maxlength="50">
                     <button class="remove-row-btn" onclick="removeLeaderRow(this)">×</button>
                 </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <label style="margin-top:20px;">Background style</label>
-            <p style="font-size:12px;color:#a8a8a8;margin-bottom:8px;">Pick a background for light mode.</p>
+            <p style="font-size:12px;color:#a8a8a8;margin-bottom:8px;" id="bgLabel">Pick a background for light mode.</p>
             <div class="bg-options" id="bgOptions">
                 <div class="bg-option selected" onclick="selectBg('default', this)">
                     <div class="bg-swatch" style="background:linear-gradient(135deg,#fdf6f9,#f3eeff,#edf5ff);"></div>
@@ -90,6 +90,32 @@
                 <div class="bg-option" onclick="selectBg('white', this)">
                     <div class="bg-swatch" style="background:#ffffff;border:1px solid #eee;"></div>
                     <span>White</span>
+                </div>
+            </div>
+            <div class="bg-options" id="bgOptionsDark" style="display:none;">
+                <div class="bg-option selected" onclick="selectBg('dark-default', this)">
+                    <div class="bg-swatch" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);"></div>
+                    <span>Deep Blue</span>
+                </div>
+                <div class="bg-option" onclick="selectBg('dark-purple', this)">
+                    <div class="bg-swatch" style="background:linear-gradient(135deg,#1a1025,#2d1b4e,#1a1025);"></div>
+                    <span>Purple Night</span>
+                </div>
+                <div class="bg-option" onclick="selectBg('dark-green', this)">
+                    <div class="bg-swatch" style="background:linear-gradient(135deg,#0a1a14,#1a2e28,#0a1a14);"></div>
+                    <span>Forest</span>
+                </div>
+                <div class="bg-option" onclick="selectBg('dark-warm', this)">
+                    <div class="bg-swatch" style="background:linear-gradient(135deg,#1a1410,#2e2218,#1a1410);"></div>
+                    <span>Warm Dark</span>
+                </div>
+                <div class="bg-option" onclick="selectBg('dark-charcoal', this)">
+                    <div class="bg-swatch" style="background:#1e1e1e;"></div>
+                    <span>Charcoal</span>
+                </div>
+                <div class="bg-option" onclick="selectBg('dark-black', this)">
+                    <div class="bg-swatch" style="background:#121212;"></div>
+                    <span>Midnight</span>
                 </div>
             </div>
             <label style="margin-top:20px;">Heading style</label>
@@ -231,7 +257,7 @@
                 <div class="btn-row" style="justify-content:center;">
                     <button class="btn btn-primary" onclick="finishSetup()" style="max-width:260px;">Open Command Center →</button>
                 </div>
-                <a href="guide.html" class="guide-link">📖 Read the Command Center Guide</a>
+                <a href="guide.html" target="_blank" class="guide-link">📖 Read the Command Center Guide</a>
             </div>
         </div>
     </div>
@@ -276,7 +302,7 @@
         .leader-inputs { display: flex; flex-direction: column; gap: 10px; }
         .leader-row { display: flex; gap: 8px; align-items: center; }
         .leader-row input { flex: 1; }
-        .leader-row .emoji-input { width: 50px; text-align: center; font-size: 18px; }
+        .leader-row .emoji-select { width: 55px; text-align: center; font-size: 18px; padding: 8px 4px; border: 1px solid #f0e4ea; border-radius: 10px; background: #fdf6f9; cursor: pointer; appearance: none; -webkit-appearance: none; }
         .remove-row-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #f0e4ea; background: white; font-size: 14px; cursor: pointer; color: #a8a8a8; transition: all 0.2s; }
         .remove-row-btn:hover { background: #ffeaea; color: #e06b6b; border-color: #e06b6b; }
         .add-leader-btn { padding: 10px; background: none; border: 1px dashed #f0e4ea; border-radius: 8px; font-size: 12px; cursor: pointer; color: #7a7a7a; width: 100%; margin-top: 8px; }
@@ -341,7 +367,13 @@
             mint: 'linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 40%, #e8eaf6 70%, #e8f5e9 100%)',
             sunset: 'linear-gradient(135deg, #fff8e1 0%, #fff3e0 40%, #fbe9e7 70%, #fff8e1 100%)',
             clean: '#f5f5f5',
-            white: '#ffffff'
+            white: '#ffffff',
+            'dark-default': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)',
+            'dark-purple': 'linear-gradient(135deg, #1a1025 0%, #2d1b4e 40%, #1a1025 100%)',
+            'dark-green': 'linear-gradient(135deg, #0a1a14 0%, #1a2e28 40%, #0a1a14 100%)',
+            'dark-warm': 'linear-gradient(135deg, #1a1410 0%, #2e2218 40%, #1a1410 100%)',
+            'dark-charcoal': '#1e1e1e',
+            'dark-black': '#121212'
         };
         const fontValues = {
             inter: "'Inter', -apple-system, sans-serif",
@@ -361,7 +393,7 @@
             if (currentStep === 2) {
                 let hasLeader = false;
                 document.querySelectorAll('#leaderInputs .leader-row').forEach(row => {
-                    if (row.querySelectorAll('input')[1].value.trim()) hasLeader = true;
+                    if (row.querySelector('input[type="text"]').value.trim()) hasLeader = true;
                 });
                 if (!hasLeader) { document.getElementById('leaderValidation').textContent = 'Add at least one leader name.'; return; }
                 document.getElementById('leaderValidation').textContent = '';
@@ -390,7 +422,10 @@
             if (container.children.length >= 10) return;
             const row = document.createElement('div');
             row.className = 'leader-row';
-            row.innerHTML = '<input class="emoji-input" type="text" value="' + (defaultEmojis[container.children.length] || '⭐') + '" maxlength="2"><input type="text" placeholder="Leader name" maxlength="50"><button class="remove-row-btn" onclick="removeLeaderRow(this)">×</button>';
+            row.innerHTML = '<select class="emoji-select"><option>🟣</option><option>🔵</option><option>🧡</option><option>🟢</option><option>🔴</option><option>💛</option><option>🩷</option><option>💜</option><option>🩵</option><option>⭐</option><option>🤍</option><option>🖤</option></select><input type="text" placeholder="Leader name" maxlength="50"><button class="remove-row-btn" onclick="removeLeaderRow(this)">×</button>';
+            // Set a different default emoji based on position
+            const emojis = ['🟣','🔵','🧡','🟢','🔴','💛','🩷','💜','🩵','⭐'];
+            row.querySelector('.emoji-select').value = emojis[container.children.length] || '⭐';
             container.appendChild(row);
         }
 
@@ -404,11 +439,19 @@
             config.theme = theme;
             document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
-            // Live preview
+            // Toggle background options
             if (theme === 'dark') {
+                document.getElementById('bgOptions').style.display = 'none';
+                document.getElementById('bgOptionsDark').style.display = 'grid';
+                document.getElementById('bgLabel').textContent = 'Pick a background for dark mode.';
                 document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)';
+                config.bg = 'dark-default';
             } else {
+                document.getElementById('bgOptions').style.display = 'grid';
+                document.getElementById('bgOptionsDark').style.display = 'none';
+                document.getElementById('bgLabel').textContent = 'Pick a background for light mode.';
                 document.body.style.background = bgValues[config.bg] || bgValues.default;
+                config.bg = 'default';
             }
         }
 
@@ -556,7 +599,7 @@
             document.getElementById('doneMascot').textContent = mascotEmojis[config.mascot] || '🐕';
             const leaders = [];
             document.querySelectorAll('#leaderInputs .leader-row').forEach(row => {
-                const lname = row.querySelectorAll('input')[1].value.trim();
+                const lname = row.querySelector('input[type="text"]').value.trim();
                 if (lname) leaders.push(lname);
             });
             document.getElementById('doneSummary').innerHTML =
@@ -577,8 +620,8 @@
             const leaderKeys = ['anthony', 'chris', 'eateam', 'coverage'];
             let idx = 0;
             document.querySelectorAll('#leaderInputs .leader-row').forEach(row => {
-                const emoji = row.querySelector('.emoji-input').value.trim() || defaultEmojis[idx];
-                const lname = row.querySelectorAll('input')[1].value.trim();
+                const emoji = row.querySelector('.emoji-select').value || defaultEmojis[idx];
+                const lname = row.querySelector('input[type="text"]').value.trim();
                 if (lname && idx < leaderKeys.length) {
                     leaders[leaderKeys[idx]] = { name: lname, emoji, color: colors[idx % colors.length] };
                     idx++;
