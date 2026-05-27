@@ -3762,8 +3762,92 @@ function autoArchiveCompleted() {
     });
 }
 
+// --- Leader Management ---
+function renderLeadersList() {
+    const container = document.getElementById('leadersList');
+    if (!container) return;
+    const leaders = getLeaders();
+    container.innerHTML = Object.entries(leaders).map(([key, leader]) => `
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:8px;">
+            <span style="font-size:20px;">${leader.emoji || '📌'}</span>
+            <span style="flex:1;font-size:14px;font-weight:500;">${escapeHtml(leader.name)}</span>
+            <button class="add-btn-small" onclick="editLeaderSettings('${key}')">✏️ Edit</button>
+            <button class="add-btn-small" style="color:var(--red);border-color:var(--red);" onclick="removeLeader('${key}')">×</button>
+        </div>
+    `).join('');
+}
+
+function addNewLeader() {
+    openModal('Add Leader', `
+        <label>Emoji</label>
+        <input type="text" id="newLeaderEmoji" value="⭐" placeholder="e.g., 🟣" style="font-size:20px;width:60px;">
+        <label>Name</label>
+        <input type="text" id="newLeaderName" placeholder="e.g., Sarah K.">
+        <button class="modal-submit">Add Leader</button>
+    `, () => {
+        const emoji = document.getElementById('newLeaderEmoji').value.trim() || '⭐';
+        const name = document.getElementById('newLeaderName').value.trim();
+        if (!name) return;
+        const leaders = getLeaders();
+        const key = 'leader-' + Date.now();
+        leaders[key] = { name, emoji, color: 'purple' };
+        saveLeaders(leaders);
+        LEADERS = leaders;
+        ensureLeaderViews();
+        renderNav();
+        initNav();
+        renderLeadersList();
+        updateTaskCounts();
+        closeModal();
+        showToast('Leader added ✨');
+    });
+}
+
+function editLeaderSettings(key) {
+    const leaders = getLeaders();
+    const leader = leaders[key];
+    if (!leader) return;
+    openModal('Edit Leader', `
+        <label>Emoji</label>
+        <input type="text" id="editLeaderEmoji" value="${leader.emoji || ''}" style="font-size:20px;width:60px;">
+        <label>Name</label>
+        <input type="text" id="editLeaderName" value="${escapeHtml(leader.name)}">
+        <button class="modal-submit">Save</button>
+    `, () => {
+        const emoji = document.getElementById('editLeaderEmoji').value.trim() || leader.emoji;
+        const name = document.getElementById('editLeaderName').value.trim() || leader.name;
+        leaders[key] = { ...leader, emoji, name };
+        saveLeaders(leaders);
+        LEADERS = leaders;
+        renderNav();
+        initNav();
+        renderLeadersList();
+        closeModal();
+        showToast('Leader updated ✨');
+    });
+}
+
+function removeLeader(key) {
+    if (!confirm('Remove this leader? Their tasks and data will remain but the tab will be hidden.')) return;
+    const leaders = getLeaders();
+    delete leaders[key];
+    saveLeaders(leaders);
+    LEADERS = leaders;
+    // Remove the view if it exists
+    const view = document.getElementById('view-' + key);
+    if (view) view.remove();
+    renderNav();
+    initNav();
+    renderLeadersList();
+    updateTaskCounts();
+    showToast('Leader removed');
+}
+
 // --- Settings (Mascot, Export/Import) ---
 function initSettings() {
+    // Render leaders list
+    renderLeadersList();
+
     // Mascot speech
     const speechInput = document.getElementById('mascotSpeech');
     const currentSpeech = getData('mascot-speech', 'woof! 🐾');
